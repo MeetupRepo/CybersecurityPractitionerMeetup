@@ -1,6 +1,7 @@
+
 <h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Microsoft_Governance_User_Group_Repository_0"></a>Microsoft Governance User Group Repository</h1>
 <h2 class="code-line" data-line-start=1 data-line-end=2 ><a id="_Consolidated_location_for_meetup_resources__1"></a><em>Consolidated location for meetup resources</em></h2>
-<p class="has-line-data" data-line-start="3" data-line-end="4"><a href="[[https://www.meetup.com/microsoft-governance-user-group](https://www.meetup.com/cybersecurity-practitioner-meetup/)](https://www.meetup.com/cybersecurity-practitioner-meetup/)/"><img src="[https://raw.githubusercontent.com/MeetupRepo/MGUG/main/groupAssets/MGUG_banner_20%25.png](https://raw.githubusercontent.com/MeetupRepo/CybersecurityPractitionerMeetup/main/groupAssets/CSPM_logo.png)" alt="N|Solid"></a></p>
+<p class="has-line-data" data-line-start="3" data-line-end="4"><a href="https://www.meetup.com/cybersecurity-practitioner-meetup/"><img src="https://raw.githubusercontent.com/MeetupRepo/CybersecurityPractitionerMeetup/main/groupAssets/CSPM_logo.png" alt="N|Solid"></a></p>
 <h4 class="code-line" data-line-start=5 data-line-end=6 ><a id="Hello_World_5"></a>Hello World,</h4>
 <h5 class="code-line" data-line-start=7 data-line-end=8 ><a id="This_repo_is_dedicated_for_Microsoft_Governance_User_Group_and_its_meetups_7"></a>This repo is dedicated for “Microsoft Governance User Group” and its meetups.</h5>
 <p class="has-line-data" data-line-start="8" data-line-end="9">It is used to host the group assets like presentation templates and speaker presentations.</p>
