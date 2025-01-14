@@ -38,3 +38,44 @@ This exclusive community offers a unique opportunity to expand your professional
 </tr>
 </tbody>
 </table>
+
+
+<pre><code class="has-line-data" data-line-start="15" data-line-end="17" class="language-sh">
+  <b>Setup for a experiment machine</b>
+</code></pre>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Activity</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b><i>Update</i></b></td>
+<td>sudo apt update -y
+sudo apt upgrade -y
+</td>
+</tr>
+<tr>
+<td><b><i>Install Git</i></b></td>
+<td>
+sudo apt update -y
+sudo apt install git -y
+git config --global user.email "email address"
+git config --global user.name "name"
+</td>
+</tr>
+<tr>
+<td><b><i>Install and access Jupyter</i></b></td>
+<td>
+sudo apt update -y
+sudo apt install python3-pip -y 
+sudo pip3 install jupyterlab -y
+jupyter lab --no-browser --port=80808
+#new shell
+ssh -L 8080:localhost:8080 user@<remote-server-name>
+</td>
+</tr>
+</tbody>
+</table>
