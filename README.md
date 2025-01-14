@@ -53,27 +53,27 @@ This exclusive community offers a unique opportunity to expand your professional
 <tbody>
 <tr>
 <td><b><i>Update</i></b></td>
-<td>sudo apt update -y
+<td>sudo apt update -y <br>
 sudo apt upgrade -y
 </td>
 </tr>
 <tr>
 <td><b><i>Install Git</i></b></td>
 <td>
-sudo apt update -y
-sudo apt install git -y
-git config --global user.email "email address"
+sudo apt update -y <br>
+sudo apt install git -y <br>
+git config --global user.email "email address" <br>
 git config --global user.name "name"
 </td>
 </tr>
 <tr>
 <td><b><i>Install and access Jupyter</i></b></td>
 <td>
-sudo apt update -y
-sudo apt install python3-pip -y 
-sudo pip3 install jupyterlab -y
-jupyter lab --no-browser --port=80808
-#new shell
+sudo apt update -y <br>
+sudo apt install python3-pip -y <br>
+sudo pip3 install jupyterlab -y <br>
+jupyter lab --no-browser --port=80808 <br>
+#new shell <br>
 ssh -L 8080:localhost:8080 user@<remote-server-name>
 </td>
 </tr>
