@@ -1,36 +1,56 @@
-from fastapi import FastAPI
-from transformers import pipeline
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from typing import List, Dict, Any
 
 app = FastAPI()
 
-# Enable GPU optimization
-torch.backends.cudnn.benchmark = True
-
-# Load model with optimizations
-model = pipeline("text-generation",
-    model="TinyLLama/TinyLlama-1.1B-Chat-v1.0",
-    torch_dtype=torch.float16,  # Use half precision
-    device_map="auto",         # Automatic device optimization
-    model_kwargs={
-        "low_cpu_mem_usage": True,
-    }
+# Load model and tokenizer globally
+print("Loading model...")
+model = AutoModelForCausalLM.from_pretrained(
+    "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    torch_dtype=torch.float16,
+    device_map="auto"
 )
+tokenizer = AutoTokenizer.from_pretrained(
+    "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    padding_side="right"
+)
+print("Model loaded successfully!")
 
-# Batch processing configuration
-BATCH_SIZE = 1  # Adjust based on your GPU memory
-MAX_LENGTH = 256  # Limit output length
+class GenerateRequest(BaseModel):
+    prompt: str
+    max_length: int = 200
+    temperature: float = 0.7
 
 @app.post("/generate")
-async def generate_text(prompt: str):
+async def generate_text(request: GenerateRequest) -> Dict[str, Any]:
     try:
-        response = model(prompt, 
-            max_length=MAX_LENGTH,
-            num_return_sequences=1,
-            pad_token_id=model.tokenizer.eos_token_id,
-            do_sample=True,
-            temperature=0.7
-        )
-        return {"generated_text": response[0]["generated_text"]}
+        # Format prompt according to TinyLLaMA chat template
+        chat_prompt = f"<|im_start|>user\n{request.prompt}<|im_end|>\n<|im_start|>assistant\n"
+        
+        inputs = tokenizer(chat_prompt, return_tensors="pt").to(model.device)
+        
+        with torch.no_grad():
+            outputs = model.generate(
+                **inputs,
+                max_length=request.max_length,
+                temperature=request.temperature,
+                do_sample=True,
+                pad_token_id=tokenizer.pad_token_id
+            )
+        
+        response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        response = response.split("assistant\n")[-1].strip()
+        
+        return {
+            "generated_text": response,
+            "status": "success"
+        }
     except Exception as e:
-        return {"error": str(e)}
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "model": "TinyLlama-1.1B-Chat"}
